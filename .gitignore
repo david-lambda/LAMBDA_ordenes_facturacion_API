@@ -5,6 +5,8 @@ media/
 
 venv/
 /venv/
+env/
+/env/
 
 .vscode/
 /.vscode/
