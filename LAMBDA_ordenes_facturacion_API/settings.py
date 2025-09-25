@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import ssl
+import certifi
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
@@ -73,7 +75,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-             # os.path.join(BASE_DIR, "Aplicacion/Templates"),
+             os.path.join(BASE_DIR, "Usuarios/Templates"),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -170,3 +172,17 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
+
+# EMAIL CONFIGURATION
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_ENCRYPTION = os.getenv("EMAIL_ENCRYPTION")
+EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
+
+# OTRAS CONFIGURACIONES
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+CAMBIO_PASSWORD_URL = os.getenv("CAMBIO_PASSWORD_URL")

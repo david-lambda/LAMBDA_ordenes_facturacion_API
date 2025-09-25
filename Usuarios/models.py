@@ -61,6 +61,13 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         self.reset_password_token_expires_at = timezone.now() + timedelta(hours=1)
         self.save()
 
+    def validate_reset_token(self, token):
+        if (self.reset_password_token == token and 
+            self.reset_password_token_expires_at and 
+            timezone.now() < self.reset_password_token_expires_at):
+            return True
+        return False
+
     @property
     def is_staff(self):
         return self.is_superuser
